@@ -6,10 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var apiAssembly = Assembly.GetAssembly(typeof(Program));
-builder.Services.AddServices(apiAssembly);
+builder.Services.AddServices(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddEndpointsApiExplorer();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Secret"]);
 
@@ -31,16 +31,7 @@ builder.Services.AddAuthentication(x =>
         };
     });
 
-builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
-
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
 
 app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
 app.UseHttpsRedirection();
