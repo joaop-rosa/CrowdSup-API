@@ -16,7 +16,6 @@ namespace CrowdSup.Domain.Entities.Usuarios
         private Usuario() { }
 
         public Usuario(
-            int id,
             string nome,
             string email,
             string senha,
@@ -26,7 +25,6 @@ namespace CrowdSup.Domain.Entities.Usuarios
             ETipoSexo sexo
         )
         {
-            Id = id;
             Nome = nome;
             Email = email;
             Senha = senha;
