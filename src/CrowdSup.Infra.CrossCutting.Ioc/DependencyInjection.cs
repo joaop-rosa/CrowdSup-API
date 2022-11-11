@@ -6,6 +6,8 @@ using CrowdSup.Infra.Data.Context;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using CrowdSup.Infra.Data.repositories.usuarios;
+using CrowdSup.Domain.Interfaces.Repositories.Usuarios;
 
 namespace CrowdSup.Infra.CrossCutting.Ioc
 {
@@ -16,6 +18,9 @@ namespace CrowdSup.Infra.CrossCutting.Ioc
             // Domain Services
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IHashService, HashService>();
+
+            // Repositories
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
             // Database Contexts
             services.AddDbContext<CrowdsupContext>(options => 
