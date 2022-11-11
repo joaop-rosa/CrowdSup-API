@@ -37,7 +37,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapControllers();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -1,7 +1,7 @@
-using System.Data.Entity;
 using CrowdSup.Domain.Entities.Usuarios;
 using CrowdSup.Domain.Interfaces.Repositories.Usuarios;
 using CrowdSup.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrowdSup.Infra.Data.repositories.usuarios
 {

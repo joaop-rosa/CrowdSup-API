@@ -33,7 +33,7 @@ namespace CrowdSup.Api.Controllers
             var usuarioLogado = await _usuarioRepository.ObterLoginAsync(request.Email, senhaCriptografada);
 
             if (usuarioLogado is null)
-                return NotFound(new { message = "Usuário ou senha inválidos" });
+                return Unauthorized(new { message = "Usuário ou senha inválidos" });
 
             var token = _tokenService.GerarToken(usuarioLogado);
 
