@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Text;
 using CrowdSup.Infra.CrossCutting.Ioc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,6 +37,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();

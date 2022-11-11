@@ -32,6 +32,7 @@ namespace CrowdSup.Infra.Data.Context.Mappers.Eventos
         {
             builder.OwnsOne(x => x.Endereco, (itemBuilder) =>
             {
+                itemBuilder.Property(x => x.Cidade).HasColumnName("ESTADO");
                 itemBuilder.Property(x => x.Cidade).HasColumnName("CIDADE");
                 itemBuilder.Property(x => x.Bairro).HasColumnName("BAIRRO");
                 itemBuilder.Property(x => x.Rua).HasColumnName("RUA");

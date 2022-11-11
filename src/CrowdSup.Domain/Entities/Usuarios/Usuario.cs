@@ -10,7 +10,8 @@ namespace CrowdSup.Domain.Entities.Usuarios
         public string Senha { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public string Cidade { get; private set; }
-        public int Telefone { get; private set; }
+        public string Estado { get; private set; }
+        public string Telefone { get; private set; }
         public ETipoSexo Sexo { get; private set; }
 
         private Usuario() { }
@@ -21,7 +22,8 @@ namespace CrowdSup.Domain.Entities.Usuarios
             string senha,
             DateTime dataNascimento,
             string cidade,
-            int telefone,
+            string estado,
+            string telefone,
             ETipoSexo sexo
         )
         {
@@ -30,6 +32,7 @@ namespace CrowdSup.Domain.Entities.Usuarios
             Senha = senha;
             DataNascimento = dataNascimento;
             Cidade = cidade;
+            Estado = estado;
             Telefone = telefone;
             Sexo = sexo;
         }
