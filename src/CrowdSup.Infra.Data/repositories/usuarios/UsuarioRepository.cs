@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using CrowdSup.Domain.Entities.Usuarios;
 using CrowdSup.Domain.Interfaces.Repositories.Usuarios;
 using CrowdSup.Infra.Data.Context;
@@ -14,8 +15,12 @@ namespace CrowdSup.Infra.Data.repositories.usuarios
         public async Task InserirAsync(Usuario usuario)
         {
             await _context.AddAsync(usuario);
-            
+
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Usuario> ObterLoginAsync(string email, string senha)
+            => await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
     }
 }
