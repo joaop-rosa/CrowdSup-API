@@ -1,6 +1,7 @@
-using CrowdSup.Domain.Entities.Usuarios;
+using CrowdSup.Api.Models.Requests.Logins;
+using CrowdSup.Domain.Interfaces.DomainServices.Hash;
 using CrowdSup.Domain.Interfaces.DomainServices.Token;
-using Microsoft.AspNetCore.Authorization;
+using CrowdSup.Domain.Interfaces.Repositories.Usuarios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdSup.Api.Controllers
@@ -9,36 +10,34 @@ namespace CrowdSup.Api.Controllers
     [Route("login")]
     public class LoginController : ControllerBase
     {
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IHashService _hashService;
         private readonly ITokenService _tokenService;
 
-        public LoginController(ITokenService tokenService)
+        public LoginController(
+            IUsuarioRepository usuarioRepository,
+            IHashService hashService,
+            ITokenService tokenService
+        )
         { 
+            _usuarioRepository = usuarioRepository;
+            _hashService = hashService;
             _tokenService = tokenService;
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult<dynamic>> AutenticarAsync()
-        // {
-        //     //receber login request
-        //     //buscar usuario do banco
+        [HttpPost]
+        public async Task<ActionResult<dynamic>> AutenticarAsync([FromBody] LoginRequest request)
+        {
+            var senhaCriptografada = _hashService.GerarMd5(request.Senha);
 
-        //     var usuario = new Usuario();
+            var usuarioLogado = await _usuarioRepository.ObterLoginAsync(request.Email, senhaCriptografada);
 
-        //     if (usuario is null)
-        //         return NotFound(new { message = "Usuário ou senha inválidos" });
+            if (usuarioLogado is null)
+                return NotFound(new { message = "Usuário ou senha inválidos" });
 
-        //     var token = _tokenService.GerarToken(usuario);
+            var token = _tokenService.GerarToken(usuarioLogado);
 
-        //     return token;
-        // }
-
-        // [HttpGet]
-        // [Authorize]
-        // public async Task<ActionResult<dynamic>> TesteAsync()
-        // {
-        //     return "deu bom";
-        // }
-
-
+            return token;
+        }
     }
 }
