@@ -17,6 +17,11 @@ namespace CrowdSup.Infra.CrossCutting.Ioc
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IHashService, HashService>();
 
+            // Database Contexts
+            services.AddDbContext<CrowdsupContext>(options => 
+            {
+                options.UseNpgsql(configuration.GetConnectionString("Default"));
+            });
         }
     }
 }
